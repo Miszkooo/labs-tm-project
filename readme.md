@@ -3,6 +3,7 @@
 
 ## Termometr z wykorzystaniem czujnika DHT11 oraz wyświetlaczem LCD
 Nasze testy przeprowadzimy na popularnym, cyfrowym czujniku DHT-11. Układ ten łączy w jednej obudowie termometr oraz czujnik wilgotności. Informacje z czujnika wyświetlimy na wyświetlaczu LCD.
+Program zostanie napisany w środowisku Arduino IDE
 Najważniejsze parametry czujnika:
 - Napięcie zasilania: 3 V do 5,5 V (w naszym przypadku będzie to 5 V)
 - Pobór prądu: 0,2 mA
@@ -13,7 +14,7 @@ Najważniejsze parametry czujnika:
 - Dokładność  ±5%RH
 Czujnik DHT11 jest tanim wyborem i nie ma zakresu dla temperatur minusowych dlatego nadaje się do mierzenie temperatury w pomieszczeniu.
 
-![img](./hardware/dht11.JPG)
+![img](./dht11.JPG)
 
 Do wyświetlania pomiarów wykorzystamy wyświetlacz LCD z konwerterterem I2C LCM1602. Dzięki temu nasz projekt będzie o wiele prosty w wykonaniu, ograniczymy ilość użytych przewodów do połączeń, oraz niepotrzebny będzie nam potencjometr oraz rezystor który normalnie byłby użyty.
 
@@ -25,7 +26,7 @@ Do wyświetlania pomiarów wykorzystamy wyświetlacz LCD z konwerterterem I2C LC
 - płytka stykowa
 - przewody
 ## Schemat
-![img](./hardware/schemat.JPG)
+![img](./schemat.JPG)
 ## Szczegóły dotyczące kodu
 Aby zacząć pisać program trzeba pobrać 2 bibilioteki. Pierwszą obsługującą czujniki DHT-"SDHT", oraz drugą obsługującą wyświetlacz LCD z konwerterem I2C "New-LiquidCrystal-master".
 
@@ -73,9 +74,9 @@ delay(100);
 ```
 W ostatniej części naszego kodu musimy zająć się wyświetlaczem. lcd.setCursor(0, 0) oznacza ustawienie kursora na 0 rząd i 0 kolumnę wyświetlacza, następnie wyświetlamy potrzebny tekst oraz zmienną. Delay ustawiamy na 100 ms ponieważ częstotliwość próbkowania wynosi 1Hz.
 ## 
-![img](./hardware/zdj1.JPG)
-![img](./hardware/zdj2.JPG)
-![img](./hardware/zdj3.JPG)
+![img](./zdj1.JPG)
+![img](./zdj2.JPG)
+![img](./zdj3.JPG)
 
 ## Materiały pomocnicze
 [link](https://forbot.pl/blog/kurs-arduino-ii-cyfrowy-czujnik-wilgotnosci-dht11-id18417)
