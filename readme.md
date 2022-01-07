@@ -14,7 +14,7 @@ Najważniejsze parametry czujnika:
 - Dokładność  ±5%RH
 Czujnik DHT11 jest tanim wyborem i nie ma zakresu dla temperatur minusowych dlatego nadaje się do mierzenie temperatury w pomieszczeniu.
 
-![img](./dht11.jpg)
+![img](./hardware/dht11.jpg)
 
 Do wyświetlania pomiarów wykorzystamy wyświetlacz LCD z konwerterterem I2C LCM1602. Dzięki temu nasz projekt będzie o wiele prosty w wykonaniu, ograniczymy ilość użytych przewodów do połączeń, oraz niepotrzebny będzie nam potencjometr oraz rezystor który normalnie byłby użyty.
 
