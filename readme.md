@@ -13,7 +13,7 @@ Najważniejsze parametry czujnika:
 - Dokładność  ±5%RH
 Czujnik DHT11 jest tanim wyborem i nie ma zakresu dla temperatur minusowych dlatego nadaje się do mierzenie temperatury w pomieszczeniu.
 
-![img](./dht11.JPG)
+![img](./hardware/dht11.JPG)
 
 Do wyświetlania pomiarów wykorzystamy wyświetlacz LCD z konwerterterem I2C LCM1602. Dzięki temu nasz projekt będzie o wiele prosty w wykonaniu, ograniczymy ilość użytych przewodów do połączeń, oraz niepotrzebny będzie nam potencjometr oraz rezystor który normalnie byłby użyty.
 
@@ -25,7 +25,7 @@ Do wyświetlania pomiarów wykorzystamy wyświetlacz LCD z konwerterterem I2C LC
 - płytka stykowa
 - przewody
 ## Schemat
-![img](./schemat.JPG)
+![img](./hardware/schemat.JPG)
 ## Szczegóły dotyczące kodu
 Aby zacząć pisać program trzeba pobrać 2 bibilioteki. Pierwszą obsługującą czujniki DHT-"SDHT", oraz drugą obsługującą wyświetlacz LCD z konwerterem I2C "New-LiquidCrystal-master".
 
@@ -73,7 +73,11 @@ delay(100);
 ```
 W ostatniej części naszego kodu musimy zająć się wyświetlaczem. lcd.setCursor(0, 0) oznacza ustawienie kursora na 0 rząd i 0 kolumnę wyświetlacza, następnie wyświetlamy potrzebny tekst oraz zmienną. Delay ustawiamy na 100 ms ponieważ częstotliwość próbkowania wynosi 1Hz.
 ## 
-![img](./zdj1.JPG)
-![img](./zdj2.JPG)
-![img](./zdj3.JPG)
+![img](./hardware/zdj1.JPG)
+![img](./hardware/zdj2.JPG)
+![img](./hardware/zdj3.JPG)
 
+## Materiały pomocnicze
+[link](https://forbot.pl/blog/kurs-arduino-ii-cyfrowy-czujnik-wilgotnosci-dht11-id18417)
+
+[link](https://www.instructables.com/How-to-Connect-I2C-Lcd-Display-to-Arduino-Uno/#:~:text=%20How%20to%20Connect%20I2C%20Lcd%20Display%20to,want%20to%20learn%20%E2%80%8BC%20Programming%20you...%20More%20)
