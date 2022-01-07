@@ -1,35 +1,72 @@
 # Projekt Technika Mikroprocesorowa
 
 
-## Czasowy włącznik zbliżeniowy
-Jeżeli z jakiegoś powodu nie możemy dotkąć włącznika światła na przykład z powodu brudnych rąk o wiele wygodniejsze jest zbliżenie się do czujnika by go uruchomić. Działanie takiego czujnika opiera się na zasadzie wysyłania wiązki promieni podczerwieni przez nadajnik i ich odbieraniu przez odbiornik. Wiązka promieni świetlnych napytakając na swojej drodze przeszkodę, odbija się od niej zgodnie z prawami fizyki. Część tych promieni podczerwieni trafia do odbiornika, gdzie wzmocnione służą do wytworzenia sygnału przełączojącego.  
-![img](./płytka.png)
+## Termometr z wykorzystaniem czujnika DHT11 oraz wyświetlaczem LCD
+Nasze testy przeprowadzimy na popularnym, cyfrowym czujniku DHT-11. Układ ten łączy w jednej obudowie termometr oraz czujnik wilgotności. Informacje z czujnika wyświetlimy na wyświetlaczu LCD.
+Najważniejsze parametry czujnika:
+- Napięcie zasilania: 3 V do 5,5 V (w naszym przypadku będzie to 5 V)
+- Pobór prądu: 0,2 mA
+- Częstotliwość próbkowania: 1Hz (nowe informacje można odczytywać co sekundę)
+- Zakres pomiarowy: 0 - 50 °C
+- Dokładność: ±2°C
+- Zakres pomiarowy: 20 - 95%RH
+- Dokładność  ±5%RH
+Czujnik DHT11 jest tanim wyborem i nie ma zakresu dla temperatur minusowych dlatego nadaje się do mierzenie temperatury w pomieszczeniu.
 
+Do wyświetlania pomiarów wykorzystamy wyświetlacz LCD z konwerterterem I2C LCM1602. Dzięki temu nasz projekt będzie o wiele prosty w wykonaniu, ograniczymy ilość użytych przewodów do połączeń, oraz niepotrzebny będzie nam potencjometr oraz rezystor który normalnie byłby użyty.
 
 ## Wykaz elementów 
-### Rezystory:
-R1:1k (OHM)  
-R2,R4: 10k (OHM)  
-R3,R5: 390 (OHM)  
-R6:4,7k (OHM)  
-Z:0 (OHM)  
-PR1:200k (OHM)  
-### Kondensatory
-C1,C2:100 nF  
-C3:1 nF  
-C4:4,7 uF  
-C5:1000 uF  
-C6:100 uF  
-### Półprzewodniki
-D1: 1N4148  
-D2: 1N4007  
-LD1: dioda LED  
-T1,T2: BC547  
-US1: ATtiny25 + podstwka 8-pin  
-US2: 7805  
-### Inne
-NAD, LED, X1: złącza śrubowe 2-pin  
-OBD, X2: złącza śrubowe 3-pin  
-PK1: przekaźnik  
-## Schemat ideowy
+### Do wykonania projektu będziemy potrzebować następujących elementów:
+– Arduino UNO
+- Czujnik temperatury i wilgotności DHT11
+- Wyświetlacz LCD 2x16 znaków niebieski + konwerter I2C LCM1602
+- płytka stykowa
+- przewody
+## Szczegóły dotyczące kodu
+Aby zacząć pisać program trzeba pobrać 2 bibilioteki. Pierwszą obsługującą czujniki DHT-"SDHT", oraz drugą obsługującą wyświetlacz LCD z konwerterem I2C "New-LiquidCrystal-master".
+
+## Kod programu
+'''cpp
+#include <DHT.h>
+#include <LiquidCrystal_I2C.h>
+#include <Wire.h>
+'''
+Biblioteki potrzebne do wykonanie programu. DHT.h obsługuje nasz czujnik,  LiquidCrystal_I2C.h oraz Wire.h pozwalają na komunikację z urządzeniami I2C.
+
+'''cpp
+#define DHTPIN 2
+#define DHTTYPE DHT11
+'''
+W kolejnym kroku należy zadeklarować czujnik oraz poinformować bibliotekę o pinie, na którym ma odbywać się komunikacja
+'''cpp
+LiquidCrystal_I2C lcd(0x27, 2, 1, 0, 4, 5, 6, 7, 3, POSITIVE);
+'''
+Deklaracja pinów I2C
+'''cpp
+void setup()
+{
+  lcd.begin(16,2);
+  lcd.backlight();
+  dht.begin();
+}
+'''
+W pierwszej linii setupu definiujemy 16 kolumn i 2 rzędy wyświetlacza lcd, następnie włączamy tylne swiatło wyświetlacza, w ostatniej włączamy czujnik DHT
+'''cpp
+int h = dht.readHumidity();
+int t = dht.readTemperature();
+'''
+Pierwszą rzeczą jaką musimy zrobić w pętli to pobieranie danych z czujnika i zapisywanie ich w zmiennej
+'''cpp
+lcd.setCursor(0, 0);
+lcd.print("Temperatura: ");
+lcd.print(t);
+lcd.print("C");
+lcd.setCursor(0,1);
+lcd.print("Wilgotnosc: ");
+lcd.print(h);
+lcd.print("%");
+delay(100);
+'''
+W ostatniej części naszego kodu musimy zająć się wyświetlaczem. lcd.setCursor(0, 0) oznacza ustawienie kursora na 0 rząd i 0 kolumnę wyświetlacza, następnie wyświetlamy potrzebny tekst oraz zmienną. Delay ustawiamy na 100 ms ponieważ częstotliwość próbkowania wynosi 1Hz.
+## 
 ![img](./schemat.png)
